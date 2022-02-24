@@ -1,0 +1,5 @@
+{
+    "default": {
+        "jemalloc-vcpkg": { "baseline": "5.2.1", "port-version": 0 }
+    }
+}
