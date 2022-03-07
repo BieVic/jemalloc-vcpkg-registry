@@ -8,7 +8,7 @@ vcpkg_from_github(
 	HEAD_REF dev
 )
 
-vcpkg_execute_required_process(COMMAND bash -c "./autogen.sh" WORKING_DIRECTORY "${SOURCE_PATH}" LOGNAME "gen_")
+vcpkg_execute_required_process(COMMAND bash -c "./autogen.sh --prefix=${SOURCE_PATH}" WORKING_DIRECTORY "${SOURCE_PATH}" LOGNAME "gen_")
 
 vcpkg_configure_make(
 	SOURCE_PATH ${SOURCE_PATH}
@@ -16,12 +16,13 @@ vcpkg_configure_make(
 vcpkg_build_make(BUILD_TARGET "install")
 vcpkg_build_make(BUILD_TARGET "")
 
-file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
-
 vcpkg_fixup_pkgconfig()
 vcpkg_copy_pdbs()
+
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 
 file(
 	INSTALL "${SOURCE_PATH}/COPYING"
 	DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}"
-	RENAME copyright)
+	RENAME copyright
+    )
